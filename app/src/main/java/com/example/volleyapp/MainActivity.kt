@@ -115,12 +115,22 @@ fun VolleyballScoreboard(modifier: Modifier = Modifier) {
         modifier = modifier
             .fillMaxSize()
             .background(color = Color(0xFFE0F7FA))
-            .padding(24.dp),
+            .padding(20.dp),
         verticalArrangement = Arrangement.SpaceEvenly,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
 
-        Column(modifier = Modifier.fillMaxWidth()) {
+        Text(text = "Marcador Volleyball", fontSize = 37.sp,
+            fontFamily = FontFamily.SansSerif) // titulo de la app
+
+        Image(
+            painter = painterResource(id = R.drawable.fondo), //se la pasa la imagen
+            contentDescription = "Imagen de voleibol",
+            modifier = Modifier.size(200.dp), // Tamaño de la imagen
+            contentScale = ContentScale.Fit
+        )
+
+        Column(modifier = Modifier.fillMaxWidth()) { // textfield para los nombres
             TextField(
                 value = team1Name,
                 onValueChange = { team1Name = it },
@@ -177,7 +187,7 @@ fun VolleyballScoreboard(modifier: Modifier = Modifier) {
 
                 }
 
-                Text(text = "Equipo 1", fontSize = 22.sp)
+                Text(text = team1Name.text, fontSize = 22.sp)
 
                 Button(onClick = { team1Score++ }, colors = ButtonDefaults.buttonColors(
                     containerColor = Color.Green
@@ -201,7 +211,7 @@ fun VolleyballScoreboard(modifier: Modifier = Modifier) {
                         Text(text = "-1", fontSize = 19.sp)
                 }
 
-                Text(text = "Equipo 2", fontSize = 22.sp)
+                Text(text = team2Name.text, fontSize = 22.sp)
 
                 Button(onClick = { team2Score++ }, colors = ButtonDefaults.buttonColors(
                     containerColor = Color.Green
