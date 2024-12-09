@@ -110,6 +110,7 @@ fun VolleyballScoreboard(modifier: Modifier = Modifier) {
             Text(text = team2Score.toString(), fontSize = 48.sp)
         }
 //-------------------------------------------------------------------------------------------------------
+
         // Botones de control
         Column(horizontalAlignment = Alignment.CenterHorizontally) {
 
@@ -184,4 +185,3 @@ fun VolleyballScoreboardPreview() {
         VolleyballScoreboard()
     }
 }
-
