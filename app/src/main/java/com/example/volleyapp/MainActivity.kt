@@ -70,7 +70,7 @@ fun VolleyballScoreboard(modifier: Modifier = Modifier) {
         modifier = modifier
             .fillMaxSize()
             .background(color = Color(0xFFE0F7FA))
-            .padding(16.dp),
+            .padding(24.dp),
         verticalArrangement = Arrangement.SpaceEvenly,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
@@ -82,7 +82,7 @@ fun VolleyballScoreboard(modifier: Modifier = Modifier) {
                 label = { Text("Nombre del Equipo 1") },
                 modifier = Modifier.fillMaxWidth()
             )
-            Spacer(modifier = Modifier.height(8.dp))
+            Spacer(modifier = Modifier.height(10.dp))
             TextField(
                 value = team2Name,
                 onValueChange = { team2Name = it },
@@ -90,7 +90,7 @@ fun VolleyballScoreboard(modifier: Modifier = Modifier) {
                 modifier = Modifier.fillMaxWidth()
             )
         }
-
+//----------------------------------------------------------------------------
         // Marcadores (muestra los nombres de los equipos y los puntajes)
         Row(
             modifier = Modifier
@@ -99,7 +99,7 @@ fun VolleyballScoreboard(modifier: Modifier = Modifier) {
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically
         ) {
-            Text(text = team1Name.text, fontSize = 24.sp, fontFamily = FontFamily.Monospace)
+            Text(text = team1Name.text, fontSize = 28.sp, fontFamily = FontFamily.Monospace)
             Text(text = team1Score.toString(), fontSize = 48.sp, textAlign = TextAlign.Center, fontFamily = FontFamily.Monospace)
         }
 
@@ -110,7 +110,7 @@ fun VolleyballScoreboard(modifier: Modifier = Modifier) {
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically
         ) {
-            Text(text = team2Name.text, fontSize = 24.sp, color = Color.Black, fontFamily = FontFamily.Monospace)
+            Text(text = team2Name.text, fontSize = 28.sp, color = Color.Black, fontFamily = FontFamily.Monospace)
             Text(text = team2Score.toString(), fontSize = 48.sp, color = Color.Black, fontFamily = FontFamily.Monospace)
         }
 //-------------------------------------------------------------------------------------------------------
@@ -128,16 +128,16 @@ fun VolleyballScoreboard(modifier: Modifier = Modifier) {
                     containerColor = Color.Red
                 )) {
 
-                    Text(text = "-1")
+                    Text(text = "-1", fontSize = 19.sp)
 
                 }
 
-                Text(text = "Equipo 1")
+                Text(text = "Equipo 1", fontSize = 22.sp)
 
                 Button(onClick = { team1Score++ }, colors = ButtonDefaults.buttonColors(
                     containerColor = Color.Green
                 )) {
-                    Text(text = "+1")
+                    Text(text = "+1", fontSize = 19.sp)
                 }
 
             }
@@ -153,15 +153,15 @@ fun VolleyballScoreboard(modifier: Modifier = Modifier) {
                 Button(onClick = { if (team2Score > 0) team2Score-- }, colors = ButtonDefaults.buttonColors(
                     containerColor = Color.Red
                 )) {
-                        Text(text = "-1")
+                        Text(text = "-1", fontSize = 19.sp)
                 }
 
-                Text(text = "Equipo 2")
+                Text(text = "Equipo 2", fontSize = 22.sp)
 
                 Button(onClick = { team2Score++ }, colors = ButtonDefaults.buttonColors(
                     containerColor = Color.Green
                 )) {
-                    Text(text = "+1")
+                    Text(text = "+1", fontSize = 19.sp)
                 }
             }
 
