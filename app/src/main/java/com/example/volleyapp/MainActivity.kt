@@ -204,12 +204,22 @@ fun VolleyballScoreboard(modifier: Modifier = Modifier) {
                 title = { Text("¡Tenemos un ganador!") },
                 text = { Text("El equipo \"$winningTeam\" ha ganado el partido.") },
                 confirmButton = {
+                    Button(onClick = {
+                        // Reiniciar la lista de equipos y el estado del ganador
+                        teamList = listOf()
+                        winningTeam = null
+                    }) {
+                        Text("Reiniciar Juego")
+                    }
+                },
+                dismissButton = {
                     Button(onClick = { winningTeam = null }) {
-                        Text("Aceptar")
+                        Text("Cerrar")
                     }
                 }
             )
         }
+
     }
 }
 
