@@ -108,6 +108,7 @@ fun SplashScreenWithNavigation(onSplashFinished: () -> Unit) {
 fun VolleyballScoreboard(modifier: Modifier = Modifier) {
     var teamList by remember { mutableStateOf(listOf<Pair<String, Int>>()) }
     var showDialog by remember { mutableStateOf(false) }
+    var winningTeam by remember { mutableStateOf<String?>(null) } // Estado para el equipo ganador
 
     Column(
         modifier = modifier
@@ -147,13 +148,24 @@ fun VolleyballScoreboard(modifier: Modifier = Modifier) {
                     textAlign = TextAlign.Center,
                     fontFamily = FontFamily.Monospace
                 )
-                Button(onClick = {
-                    teamList = teamList.toMutableList().apply {
-                        this[index] = this[index].copy(second = score + 1)
-                    }
-                },colors = ButtonDefaults.buttonColors(
-                    containerColor = Color.Green
-                )) {
+                Button(
+                    onClick = {
+                        if (winningTeam == null) { // Evitar sumar puntos si ya hay un ganador
+                            teamList = teamList.toMutableList().apply {
+                                val newScore = score + 1
+                                this[index] = this[index].copy(second = newScore)
+
+                                // Verificar si el equipo ha llegado a 25 puntos
+                                if (newScore >= 25) {
+                                    winningTeam = name
+                                }
+                            }
+                        }
+                    },
+                    colors = ButtonDefaults.buttonColors(
+                        containerColor = Color.Green
+                    )
+                ) {
                     Text("+1")
                 }
             }
@@ -182,6 +194,20 @@ fun VolleyballScoreboard(modifier: Modifier = Modifier) {
                     showDialog = false
                 },
                 onDismiss = { showDialog = false }
+            )
+        }
+
+        // Mostrar el anuncio del ganador cuando winningTeam no sea nulo
+        if (winningTeam != null) {
+            AlertDialog(
+                onDismissRequest = { winningTeam = null },
+                title = { Text("¡Tenemos un ganador!") },
+                text = { Text("El equipo \"$winningTeam\" ha ganado el partido.") },
+                confirmButton = {
+                    Button(onClick = { winningTeam = null }) {
+                        Text("Aceptar")
+                    }
+                }
             )
         }
     }
