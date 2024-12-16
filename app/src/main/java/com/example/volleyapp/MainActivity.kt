@@ -4,8 +4,13 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.compose.animation.core.LinearEasing
+import androidx.compose.animation.core.animateDpAsState
+import androidx.compose.animation.core.animateFloatAsState
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -38,6 +43,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontFamily
@@ -49,6 +55,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.volleyapp.ui.theme.VolleyAppTheme
 import kotlinx.coroutines.delay
+import com.airbnb.lottie.compose.*
 
 class MainActivity : ComponentActivity() {
 
@@ -70,20 +77,39 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
+fun LottieAnimationExample() {
+    // Carga el archivo de animación desde raw
+    val composition by rememberLottieComposition(LottieCompositionSpec.RawRes(R.raw.volleyanime))
+    val progress by animateLottieCompositionAsState(
+        composition = composition,
+        iterations = LottieConstants.IterateForever // Repite la animación
+    )
+
+    // Mostrar la animación
+    LottieAnimation(
+        composition = composition,
+        progress = { progress },
+        modifier = Modifier
+            .size(200.dp), // Tamaño de la animación
+        contentScale = ContentScale.Crop
+    )
+}
+
+@Composable
 fun SplashScreen() {
     Box(
         modifier = Modifier
             .fillMaxSize()
-            .background(Color(0xFFFFFACD)), // Cambia el color de fondo
+            .background(Color(0xFFFFFACD)),
         contentAlignment = Alignment.Center
     ) {
         Column(horizontalAlignment = Alignment.CenterHorizontally) {
-            Image(
-                painter = painterResource(id = R.drawable.icono),
-                contentDescription = "Logo de la aplicación",
-                modifier = Modifier.size(150.dp),
-                contentScale = ContentScale.Fit
-            )
+            // Lottie Animation
+            LottieAnimationExample()
+
+            Spacer(modifier = Modifier.height(16.dp))
+
+            // Título debajo de la animación
             Text(
                 text = "VolleyApp",
                 color = Color.Black,
@@ -252,6 +278,22 @@ fun AddTeamDialog(onAddTeam: (String) -> Unit, onDismiss: () -> Unit) {
         }
     )
 }
+
+@Composable
+fun AnimatedFloatingActionButton() {
+    var isClicked by remember { mutableStateOf(false) }
+    val size by animateFloatAsState(targetValue = if (isClicked) 72f else 56f) // Cambio de tamaño animado
+
+    FloatingActionButton(
+        onClick = { isClicked = !isClicked }, // Cambia el estado al hacer clic
+        modifier = Modifier.size(size.dp), // Aplicamos el tamaño animado
+        containerColor = Color.Blue,
+        contentColor = Color.White
+    ) {
+        Icon(Icons.Filled.Add, contentDescription = "Agregar equipo")
+    }
+}
+
 
 @Preview(showBackground = true)
 @Composable
