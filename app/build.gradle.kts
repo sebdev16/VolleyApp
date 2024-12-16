@@ -1,6 +1,7 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
+    id("com.google.devtools.ksp")
 }
 
 android {
@@ -49,9 +50,13 @@ android {
     }
 }
 
+
 dependencies {
 
     implementation("com.airbnb.android:lottie-compose:6.1.0")
+    implementation("androidx.room:room-runtime:2.5.2") // Asegúrate de usar la última versión
+    implementation("androidx.room:room-ktx:2.5.2")
+    ksp("androidx.room:room-compiler:2.5.0")
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.activity.compose)
